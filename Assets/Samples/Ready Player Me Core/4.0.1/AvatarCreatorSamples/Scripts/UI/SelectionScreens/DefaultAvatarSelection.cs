@@ -78,7 +78,6 @@ namespace ReadyPlayerMe
             {
                 var button = CreateAvatarRender(template.Id, template.Texture);
                 avatarRenderByTemplateData.Add(template, button);
-                Debug.LogError("Fetching Templates id " + template.Id + " Gender " + template.Gender);
             }
         }
 
@@ -87,7 +86,6 @@ namespace ReadyPlayerMe
             var button = Instantiate(buttonPrefab, parent);
             var rawImage = button.GetComponentInChildren<RawImage>();
             button.GetComponent<Button>().onClick.AddListener(() => OnAvatarSelected(id));
-            Debug.LogError("Creating avatar Render");
             rawImage.texture = renderImage;
             rawImage.SizeToParent();
             return button;
@@ -95,7 +93,6 @@ namespace ReadyPlayerMe
 
         private void OnAvatarSelected(string avatarId)
         {
-            Debug.LogError($"Avatar id " + avatarId);
             AvatarCreatorData.AvatarProperties.Id = avatarId;
             AvatarCreatorData.AvatarProperties.Base64Image = string.Empty;
             AvatarCreatorData.IsExistingAvatar = false;

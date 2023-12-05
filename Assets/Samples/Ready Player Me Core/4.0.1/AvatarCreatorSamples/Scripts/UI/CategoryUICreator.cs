@@ -178,7 +178,7 @@ namespace ReadyPlayerMe
         {
             if (bodyType != BodyType.HalfBody)
             {
-                if (category.IsOutfitAsset())
+                if (category.IsOutfitAsset() || category == Category.Animation)
                 {
                     cameraZoom.ToFullbodyView();
                 }

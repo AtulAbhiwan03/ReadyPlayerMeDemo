@@ -12,6 +12,8 @@ namespace ReadyPlayerMe
 {
     public class AvatarCreatorSelection : State, IDisposable
     {
+        [SerializeField] private Transform animationContent;
+        [SerializeField] internal List<RuntimeAnimatorController> AnimationList = new List<RuntimeAnimatorController>();
         private const string TAG = nameof(AvatarCreatorSelection);
         private const string UPDATING_YOUR_AVATAR_LOADING_TEXT = "Updating your avatar";
         private const int NUMBER_OF_ASSETS_TO_PRECOMPILE = 20;
@@ -35,11 +37,32 @@ namespace ReadyPlayerMe
         public override StateType StateType => StateType.Editor;
         public override StateType NextState => StateType.End;
 
+
+        public GameObject LoadedAvatar;
+
         private void Start()
         {
             partnerAssetManager = new PartnerAssetsManager();
+            ChangeAnimation();
+
         }
 
+        internal void ChangeAnimation()
+        {
+            int i = 0;
+            foreach (Transform child in animationContent)
+            {
+                int temp = i;
+                child.GetComponent<Button>().onClick.AddListener(() =>
+                    {
+                        LoadedAvatar.GetComponent<Animator>().runtimeAnimatorController = AnimationList[temp];
+                        
+                    }
+                    );
+                i++;
+            }
+        }
+        
         public override void ActivateState()
         {
             saveButton.onClick.AddListener(OnSaveButton);
@@ -181,6 +204,7 @@ namespace ReadyPlayerMe
             }
 
             ProcessAvatar(avatar);
+          
 
             SDKLogger.Log(TAG, $"Avatar loaded in {Time.time - startTime:F2}s");
             return avatar;
@@ -299,6 +323,7 @@ namespace ReadyPlayerMe
 
         private void ProcessAvatar(GameObject avatar)
         {
+            LoadedAvatar = avatar;
             if (AvatarCreatorData.AvatarProperties.BodyType == BodyType.FullBody)
             {
                 avatar.GetComponent<Animator>().runtimeAnimatorController = animator;
