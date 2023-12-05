@@ -10,6 +10,7 @@ using UnityEngine.UI;
 
 namespace ReadyPlayerMe
 {
+    
     public class AvatarCreatorSelection : State, IDisposable
     {
         [SerializeField] private Transform animationContent;
@@ -56,11 +57,12 @@ namespace ReadyPlayerMe
                 child.GetComponent<Button>().onClick.AddListener(() =>
                     {
                         LoadedAvatar.GetComponent<Animator>().runtimeAnimatorController = AnimationList[temp];
-                        
                     }
                     );
                 i++;
             }
+            
+            
         }
         
         public override void ActivateState()

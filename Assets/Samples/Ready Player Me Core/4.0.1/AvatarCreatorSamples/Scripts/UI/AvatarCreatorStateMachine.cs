@@ -21,9 +21,10 @@ namespace ReadyPlayerMe
         [SerializeField] private ProfileManager profileManager;
 
         public Action<string> AvatarSaved;
-
+        private AvatarData data = new AvatarData();
         private void Start()
         {
+          
             AnalyticsRuntimeLogger.EventLogger.LogAvatarCreatorSample(CoreSettingsHandler.CoreSettings.AppId);
             
             if (string.IsNullOrEmpty(CoreSettingsHandler.CoreSettings.AppId))
