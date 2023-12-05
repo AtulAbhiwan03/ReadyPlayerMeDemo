@@ -809,7 +809,7 @@ PlayerSettings:
   webGLDecompressionFallback: 0
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Android: 
+    Android: GLTFAST;READY_PLAYER_ME
     EmbeddedLinux: GLTFAST;READY_PLAYER_ME
     GameCoreScarlett: GLTFAST;READY_PLAYER_ME
     GameCoreXboxOne: GLTFAST;READY_PLAYER_ME
