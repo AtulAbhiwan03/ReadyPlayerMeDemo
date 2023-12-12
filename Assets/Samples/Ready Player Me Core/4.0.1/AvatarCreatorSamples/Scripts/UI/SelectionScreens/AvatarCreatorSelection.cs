@@ -13,8 +13,6 @@ namespace ReadyPlayerMe
     
     public class AvatarCreatorSelection : State, IDisposable
     {
-        [SerializeField] private Transform animationContent;
-        [SerializeField] internal List<RuntimeAnimatorController> AnimationList = new List<RuntimeAnimatorController>();
         private const string TAG = nameof(AvatarCreatorSelection);
         private const string UPDATING_YOUR_AVATAR_LOADING_TEXT = "Updating your avatar";
         private const int NUMBER_OF_ASSETS_TO_PRECOMPILE = 20;
@@ -44,25 +42,7 @@ namespace ReadyPlayerMe
         private void Start()
         {
             partnerAssetManager = new PartnerAssetsManager();
-            ChangeAnimation();
 
-        }
-
-        internal void ChangeAnimation()
-        {
-            int i = 0;
-            foreach (Transform child in animationContent)
-            {
-                int temp = i;
-                child.GetComponent<Button>().onClick.AddListener(() =>
-                    {
-                        LoadedAvatar.GetComponent<Animator>().runtimeAnimatorController = AnimationList[temp];
-                    }
-                    );
-                i++;
-            }
-            
-            
         }
         
         public override void ActivateState()
