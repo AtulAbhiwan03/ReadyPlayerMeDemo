@@ -13,10 +13,9 @@ public class GameManager : MonoBehaviour
         public List<RuntimeAnimatorController> animationclip = new List<RuntimeAnimatorController>();
         private AvatarObjectLoader avatarObjectLoader;
         public GameObject LoadedAvatar;
-        public GameObject AnimationCanvas;
+        public GameObject FemaleAnimationPanel;
         [SerializeField] private Transform animationContent;
-        [SerializeField] internal List<RuntimeAnimatorController> AnimationList = new List<RuntimeAnimatorController>();
-
+        [SerializeField] internal List<RuntimeAnimatorController> FemaleAnimationList = new List<RuntimeAnimatorController>();
         private void OnEnable()
         {
             avatarCreatorStateMachine.AvatarSaved += OnAvatarSaved;
@@ -30,7 +29,7 @@ public class GameManager : MonoBehaviour
 
         private void Start()
         {
-            ChangeAnimation();
+            ChangeFemaleAnimation();
         }
 
         private void OnAvatarSaved(string avatarId)
@@ -48,7 +47,14 @@ public class GameManager : MonoBehaviour
                 AvatarAnimatorHelper.SetupAnimator(args.Metadata.BodyType, args.Avatar);
                 /*args.Avatar.GetComponent<Animator>().runtimeAnimatorController = animationclip[0];*/
                 LoadedAvatar = args.Avatar;
-                AnimationCanvas.SetActive(true);
+                if (args.Metadata.OutfitGender == OutfitGender.Feminine)
+                {
+                    FemaleAnimationPanel.SetActive(true);
+                }
+                else
+                {
+                    Debug.Log("Male is selected");
+                }
                 //DebugPanel.AddLogWithDuration("Created avatar loaded", Time.time - startTime);
             };
 
@@ -56,7 +62,7 @@ public class GameManager : MonoBehaviour
         }
         
         
-        internal void ChangeAnimation()
+        internal void ChangeFemaleAnimation()
         {
             int i = 0;
             foreach (Transform child in animationContent)
@@ -64,7 +70,7 @@ public class GameManager : MonoBehaviour
                 int temp = i;
                 child.GetComponent<Button>().onClick.AddListener(() =>
                     {
-                        LoadedAvatar.GetComponent<Animator>().runtimeAnimatorController = AnimationList[temp];
+                        LoadedAvatar.GetComponent<Animator>().runtimeAnimatorController = FemaleAnimationList[temp];
                     }
                 );
                 i++;
