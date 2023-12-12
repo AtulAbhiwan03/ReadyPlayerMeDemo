@@ -45,19 +45,12 @@ public class GameManager : MonoBehaviour
             avatarObjectLoader.OnCompleted += (sender, args) =>
             {
                 AvatarAnimatorHelper.SetupAnimator(args.Metadata.BodyType, args.Avatar);
-                /*args.Avatar.GetComponent<Animator>().runtimeAnimatorController = animationclip[0];*/
                 LoadedAvatar = args.Avatar;
                 if (args.Metadata.OutfitGender == OutfitGender.Feminine)
                 {
                     FemaleAnimationPanel.SetActive(true);
                 }
-                else
-                {
-                    Debug.Log("Male is selected");
-                }
-                //DebugPanel.AddLogWithDuration("Created avatar loaded", Time.time - startTime);
             };
-
             avatarObjectLoader.LoadAvatar(AvatarEndpoints.GetAvatarPublicUrl(avatarId));
         }
         
